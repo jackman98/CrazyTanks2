@@ -42,8 +42,8 @@ void World:: buildField()
 
 
     //generation and addition of the main tank to the field
-    m->tank = new Tank(m->field, WIDTH / 2 + 4 , HEIGHT - 3, 0, TypeTank::MAIN);
-    m->tank->health = MY_HEALTH;
+    m->tank = new Tank(m->field, WIDTH / 2 + 4 , HEIGHT - 3, 0, Type::MAIN);
+    m->tank->setHealth(MY_HEALTH);
 
     //generation and addition of the enemy tans to the field
     generateEnemyTanks(COUNT_OF_ENEMY_TANKS);
@@ -80,7 +80,7 @@ void World::generateEnemyTanks(int countOfTanks)
             //            if the place is occupied by a wall or near a tank, we continue and generate new coordinates
             continue;
         }
-        enemyTank = new Tank(m->field, x, y, i + 1, TypeTank::ENEMY);
+        enemyTank = new Tank(m->field, x, y, i + 1, Type::ENEMY);
         m->enemyTanks.push_back(enemyTank);
         ++i;
     }
@@ -113,6 +113,9 @@ void World::startGame()
 {
     buildField();
 
+    render.draw();
+
+    _getch();
     //create threads
     thread renderThread(&Render::process, ref(render));
     renderThread.detach();

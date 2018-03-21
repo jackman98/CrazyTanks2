@@ -45,8 +45,8 @@ void EnemyTankAI::shoting()
         bool isNeedShot = static_cast<bool>(rand() % 3);
         if (isNeedShot) {
             //create new bullet and add in enemyBullets pull
-            Bullet *b = new Bullet(enemyTank->x, enemyTank->y,
-                                   enemyTank->type, enemyTank->direction);
+            Bullet *b = new Bullet(enemyTank->getX(), enemyTank->getY(),
+                                   enemyTank->getType(), enemyTank->getDirection());
             m->enemyBullets.push_back(b);
         }
     }

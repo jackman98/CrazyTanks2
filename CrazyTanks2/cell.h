@@ -16,14 +16,19 @@ class Cell
 {
 public:
     Cell(TypeCell t);
-    TypeCell getTypeCell() const;
     std::string getCode() const;
-    void setTypeCell(TypeCell t);
-    int strength;
-    int id;
+    TypeCell getTypeCell() const;
+    void setTypeCell(TypeCell typeCell);
+    int getId() const;
+    void setId(int id);
+    int getStrength() const;
+    void setStrength(int strength);
+
 private:
+    int id_;
+    int strength_;
     TypeCell typeCell_;
-    std::string code;
+    std::string code_;
 };
 
 #endif // CELL_H

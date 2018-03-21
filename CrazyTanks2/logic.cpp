@@ -11,7 +11,7 @@ void Logic::process()
         for(size_t i = 0; i < m->myBullets.size(); i++) {
             if (m->myBullets[i] != nullptr) {
                 //if the shot was fired
-                if (m->myBullets[i]->isShotMade) {
+                if (m->myBullets[i]->getIsShotMade()) {
                     //continue to move the bullet
                     BulletAction ba;
                     ba.shot(*m->myBullets[i]);
@@ -29,7 +29,7 @@ void Logic::process()
         for(size_t i = 0; i < m->enemyBullets.size(); i++) {
             if (m->enemyBullets[i] != nullptr) {
                 //if the shot was fired
-                if (m->enemyBullets[i]->isShotMade) {
+                if (m->enemyBullets[i]->getIsShotMade()) {
                     //continue to move the bullet
                     BulletAction ba;
                     ba.shot(*m->enemyBullets[i]);
@@ -45,7 +45,7 @@ void Logic::process()
 
         for (size_t i = 0; i < m->enemyTanks.size(); ++i) {
             //if the tank zero health increases the score and remove the tank
-            if (m->enemyTanks[i]->health == 0) {
+            if (m->enemyTanks[i]->getHealth() == 0) {
                 m->score++;
                 delete m->enemyTanks[i];
                 m->enemyTanks[i] = nullptr;
@@ -54,7 +54,7 @@ void Logic::process()
             }
         }
 
-        if (m->tank->health == 0) {
+        if (m->tank->getHealth() == 0) {
             m->loss = true;
             m->victory = false;
         }

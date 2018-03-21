@@ -1,21 +1,32 @@
 #include "render.h"
 #include <iomanip>
-//#include <windows.h>
+#include <windows.h>
 
 Render::Render()
 {
+}
+
+//
+//The use of this function instead of "system("cls");" gives a better and optimized rendering
+//
+void setcur(int x, int y)
+{
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
 void Render::draw()
 {
     int position = (WIDTH / 2 + TITLE.size() / 2);
 
-    system("cls");
-    //    setcur(0,0);
+//    system("cls");
+    setcur(0,0);
     string str;
 
     cout << setw(position) << TITLE << endl;
-    cout << "Score: " << m->score << " | Health: " << m->tank->health << " | Time : " << m->timeInGame << endl;
+    cout << "Score: " << m->score << " | Health: " << m->tank->getHealth() << " | Time : " << m->timeInGame << endl;
 
     //draw field
     for (size_t i = 0; i < m->field.size(); i++) {
@@ -34,17 +45,6 @@ void Render::draw()
         cout << "GAME OVER!!!";
     }
 }
-
-//
-//The use of this function instead of "system("cls");" gives a better and optimized rendering
-//
-//void setcur(int x, int y)
-//{
-//    COORD coord;
-//    coord.X = x;
-//    coord.Y = y;
-//    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-//}
 
 void Render::process()
 {

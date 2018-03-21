@@ -1,14 +1,74 @@
 #include "tank.h"
 
 
-Tank::Tank(vector<vector<Cell> > &field, int x, int y, int id, TypeTank type) : x(x), y(y), id(id), type(type)
+Tank::Tank(vector<vector<Cell> > &field, int x, int y, int id, Type typeTank) : x_(x), y_(y), id_(id), type_(typeTank)
 {
     //init tank
     paintTank(field, Direction::NONE);
-    if (type == TypeTank::MAIN)
-        health = MY_HEALTH;
-    else if (type == TypeTank::ENEMY)
-        health = ENEMY_HEALTH;
+    if (typeTank == Type::MAIN)
+        health_ = MY_HEALTH;
+    else if (typeTank == Type::ENEMY)
+        health_ = ENEMY_HEALTH;
+}
+
+int Tank::getX() const
+{
+    return x_;
+}
+
+void Tank::setX(int x)
+{
+    x_ = x;
+}
+
+int Tank::getY() const
+{
+    return y_;
+}
+
+void Tank::setY(int y)
+{
+    y_ = y;
+}
+
+int Tank::getHealth() const
+{
+    return health_;
+}
+
+void Tank::setHealth(int health)
+{
+    health_ = health;
+}
+
+int Tank::getId() const
+{
+    return id_;
+}
+
+void Tank::setId(int id)
+{
+    id_ = id;
+}
+
+Type Tank::getType() const
+{
+    return type_;
+}
+
+void Tank::setType(Type type)
+{
+    type_ = type;
+}
+
+Direction Tank::getDirection() const
+{
+    return direction_;
+}
+
+void Tank::setDirection(Direction direction)
+{
+    direction_ = direction;
 }
 
 bool Tank::Tank::checkingFreePlaceBeforeTank(vector<vector<Cell> > &field, Direction direction)
@@ -19,24 +79,24 @@ bool Tank::Tank::checkingFreePlaceBeforeTank(vector<vector<Cell> > &field, Direc
     //definition this symbols
     switch (direction) {
     case Direction::LEFT:
-        codeCell = field.at(y).at(x - 2).getTypeCell();
-        codeCell2 = field.at(y - 1).at(x - 2).getTypeCell();
-        codeCell3 = field.at(y + 1).at(x - 2).getTypeCell();
+        codeCell = field.at(y_).at(x_ - 2).getTypeCell();
+        codeCell2 = field.at(y_ - 1).at(x_ - 2).getTypeCell();
+        codeCell3 = field.at(y_ + 1).at(x_ - 2).getTypeCell();
         break;
     case Direction::RIGHT:
-        codeCell = field.at(y).at(x + 2).getTypeCell();
-        codeCell2 = field.at(y - 1).at(x + 2).getTypeCell();
-        codeCell3 = field.at(y + 1).at(x + 2).getTypeCell();
+        codeCell = field.at(y_).at(x_ + 2).getTypeCell();
+        codeCell2 = field.at(y_ - 1).at(x_ + 2).getTypeCell();
+        codeCell3 = field.at(y_ + 1).at(x_ + 2).getTypeCell();
         break;
     case Direction::UP:
-        codeCell = field.at(y - 2).at(x).getTypeCell();
-        codeCell2 = field.at(y - 2).at(x - 1).getTypeCell();
-        codeCell3 = field.at(y - 2).at(x + 1).getTypeCell();
+        codeCell = field.at(y_ - 2).at(x_).getTypeCell();
+        codeCell2 = field.at(y_ - 2).at(x_ - 1).getTypeCell();
+        codeCell3 = field.at(y_ - 2).at(x_ + 1).getTypeCell();
         break;
     case Direction::DOWN:
-        codeCell = field.at(y + 2).at(x).getTypeCell();
-        codeCell2 = field.at(y + 2).at(x - 1).getTypeCell();
-        codeCell3 = field.at(y + 2).at(x + 1).getTypeCell();
+        codeCell = field.at(y_ + 2).at(x_).getTypeCell();
+        codeCell2 = field.at(y_ + 2).at(x_ - 1).getTypeCell();
+        codeCell3 = field.at(y_ + 2).at(x_ + 1).getTypeCell();
         break;
     case Direction::NONE:
         break;
@@ -84,53 +144,53 @@ void Tank::move(vector<vector<Cell> > &field, Direction direction)
     default:
         break;
     }
-    this->direction = direction;
+    this->direction_ = direction;
 }
 
-void Tank::paintTank(vector<vector<Cell> > &field, Direction d)
+void Tank::paintTank(vector<vector<Cell> > &field, Direction direction)
 {
     //clear old tank place
     TypeCell typeCell;
-    if (type == TypeTank::MAIN)
+    if (type_ == Type::MAIN)
         typeCell = TypeCell::MAIN_TANK;
-    else if (type == TypeTank::ENEMY)
+    else
         typeCell = TypeCell::ENEMY_TANK;
 
-    for(int i(y - 1); i <= y + 1; i++) {
-        for(int j(x - 1); j <= x + 1; j++) {
+    for(int i(y_ - 1); i <= y_ + 1; i++) {
+        for(int j(x_ - 1); j <= x_ + 1; j++) {
             if (field.at(i).at(j).getTypeCell() == typeCell) {
                 field.at(i).at(j).setTypeCell(TypeCell::NONE);
-                field.at(i).at(j).id = -1;
+                field.at(i).at(j).setId(-1);
             }
         }
     }
 
     //tank direction
     vector<TypeCell> turn;
-    switch (d) {
+    switch (direction) {
     case Direction::LEFT:
         turn = { TypeCell::NONE, typeCell, typeCell,
                  typeCell, typeCell, TypeCell::NONE,
                  TypeCell::NONE, typeCell, typeCell };/////////
-         x--;
+         --x_;
         break;
     case Direction::RIGHT:
         turn = { typeCell, typeCell, TypeCell::NONE,
                  TypeCell::NONE, typeCell, typeCell,
                  typeCell, typeCell, TypeCell::NONE };
-         x++;
+         ++x_;
         break;
     case Direction::UP:
         turn = { TypeCell::NONE, typeCell, TypeCell::NONE,
                  typeCell, typeCell, typeCell,
                  typeCell, TypeCell::NONE, typeCell };
-        y--;
+        --y_;
         break;
     case Direction::DOWN:
         turn = { typeCell, TypeCell::NONE, typeCell,
                  typeCell, typeCell, typeCell,
                  TypeCell::NONE, typeCell, TypeCell::NONE };
-         y++;
+         ++y_;
         break;
     case Direction::NONE:
         turn = { TypeCell::NONE, typeCell, TypeCell::NONE,
@@ -143,10 +203,10 @@ void Tank::paintTank(vector<vector<Cell> > &field, Direction d)
 
     //set new position on the field
     int count = 0;
-    for(int i(y - 1); i <= y + 1; i++) {
-        for(int j(x - 1); j <= x + 1; j++) {
+    for(int i(y_ - 1); i <= y_ + 1; i++) {
+        for(int j(x_ - 1); j <= x_ + 1; j++) {
             field.at(i).at(j).setTypeCell(turn[count++]);
-            field.at(i).at(j).id = id;
+            field.at(i).at(j).setId(id_);
         }
     }
 }

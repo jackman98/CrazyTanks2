@@ -12,6 +12,11 @@ using namespace std;
 
 class World
 {
+public:
+    World();
+    void startGame();
+
+private:
     Render render;
     Input input;
     Logic logic;
@@ -24,10 +29,6 @@ class World
     void generateFortress(int x, int y);
     void generateEnemyTanks(int countOfTanks);
     bool checkNeighboringCells(int x, int y, TypeCell t, int radius = 2);
-
-public:
-    World();
-    void startGame();
 };
 
 #endif // WORLD_H

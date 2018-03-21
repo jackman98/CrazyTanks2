@@ -16,27 +16,38 @@ enum class Direction {
     NONE
 };
 
-enum class TypeTank {
+enum class Type {
     MAIN,
     ENEMY
 };
 
 class Tank
 {
-    bool checkingFreePlaceBeforeTank(vector<vector<Cell> > &field, Direction direction);
-    void paintTank(vector<vector<Cell> > &field, Direction d);
-
 public:
-    int x;
-    int y;
-    int health;
-    int id;
-    Direction direction;
-    TypeTank type;
-
-    Tank(vector<vector<Cell> > &field, int x, int y, int id, TypeTank type);
+    Tank(vector<vector<Cell> > &field, int x, int y, int id, Type typeTank);
+    int getX() const;
+    void setX(int x);
+    int getY() const;
+    void setY(int y);
+    int getHealth() const;
+    void setHealth(int health);
+    int getId() const;
+    void setId(int id);
+    Type getType() const;
+    void setType(Type type);
+    Direction getDirection() const;
+    void setDirection(Direction direction);
     void move(vector<vector<Cell> > &field, Direction direction);
     void shot();
+private:
+    bool checkingFreePlaceBeforeTank(vector<vector<Cell> > &field, Direction direction);
+    void paintTank(vector<vector<Cell> > &field, Direction direction);
+    int x_;
+    int y_;
+    int health_;
+    int id_;
+    Direction direction_;
+    Type type_;
 };
 
 #endif // TANK_H

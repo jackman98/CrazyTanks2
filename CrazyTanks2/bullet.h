@@ -9,12 +9,24 @@ using namespace std;
 class Bullet
 {
 public:
-    Bullet(int x, int y, TypeTank type, Direction d);
-    int x;
-    int y;
-    TypeTank type;
-    Direction direction;
-    bool isShotMade;
+    Bullet(int x, int y, Type type, Direction d);
+    int getX() const;
+    void setX(int x);
+    int getY() const;
+    void setY(int y);
+    Type getType() const;
+    void setType(Type type);
+    Direction getDirection() const;
+    void setDirection(Direction direction);
+    bool getIsShotMade() const;
+    void setIsShotMade(bool isShotMade);
+
+private:
+    int x_;
+    int y_;
+    Type type_;
+    Direction direction_;
+    bool isShotMade_;
 };
 
 #endif // BULLET_H

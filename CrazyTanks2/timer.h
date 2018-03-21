@@ -8,7 +8,6 @@ class Timer : public GameProcessPart
 {
 public:
     Timer();
-
     void process();
 };
 

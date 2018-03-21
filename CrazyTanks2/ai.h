@@ -6,13 +6,13 @@
 
 class EnemyTankAI : public GameProcessPart
 {
-    Direction getRandomDirection();
-    void moving();
-    void shoting();
-
 public:
     EnemyTankAI();
     void process();
+private:
+    Direction getRandomDirection();
+    void moving();
+    void shoting();
 };
 
 #endif // AI_H

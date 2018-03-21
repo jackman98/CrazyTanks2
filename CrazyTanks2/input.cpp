@@ -26,7 +26,7 @@ void Input::process()
                 break;
             case 32: {
                 //create new bullet and add in myBullets pull
-                Bullet *b = new Bullet (myTank->x, myTank->y, myTank->type, myTank->direction);
+                Bullet *b = new Bullet (myTank->getX(), myTank->getY(), myTank->getType(), myTank->getDirection());
                 m->myBullets.push_back(b);
                 break;
             }

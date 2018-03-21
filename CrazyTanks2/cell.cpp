@@ -1,8 +1,8 @@
 #include "cell.h"
 
-Cell::Cell(TypeCell t) : strength(0), typeCell_(t)
+Cell::Cell(TypeCell t) : strength_(0), typeCell_(t)
 {
-    setTypeCell(t);
+    setTypeCell(typeCell_);
 }
 
 TypeCell Cell::getTypeCell() const
@@ -12,45 +12,65 @@ TypeCell Cell::getTypeCell() const
 
 std::string Cell::getCode() const
 {
-    return code;
+    return code_;
 }
 
-void Cell::setTypeCell(TypeCell t)
+void Cell::setTypeCell(TypeCell typeCell)
 {
-    typeCell_ = t;
-    switch (t) {
+    typeCell_ = typeCell;
+    switch (typeCell) {
     case TypeCell::BOUNDARY:
-        id = -1;
-        code = "$";
+        id_ = -1;
+        code_ = "$";
         break;
     case TypeCell::WALL:
-        id = -1;
-        code = "$";
-        strength = rand() % 3 + 1;
+        id_ = -1;
+        code_ = "$";
+        strength_ = rand() % 3 + 1;
         break;
     case TypeCell::MAIN_TANK:
-        id = -1;
-        code = "#";
+        id_ = -1;
+        code_ = "#";
         break;
     case TypeCell::ENEMY_TANK:
-        id = -1;
-        code = "@";
+        id_ = -1;
+        code_ = "@";
         break;
     case TypeCell::GOLD:
-        id = -1;
-        code = "%";
+        id_ = -1;
+        code_ = "%";
         break;
     case TypeCell::BULLET:
-        id = -1;
-        code = "*";
+        id_ = -1;
+        code_ = "*";
         break;
     case TypeCell::NONE:
-        id = -1;
-        code = " ";
+        id_ = -1;
+        code_ = " ";
         break;
     default:
-        id = -1;
-        code = " ";
+        id_ = -1;
+        code_ = " ";
         break;
     }
+}
+
+int Cell::getId() const
+{
+    return id_;
+}
+
+void Cell::setId(int id)
+{
+    id_ = id;
+}
+
+int Cell::getStrength() const
+{
+    return strength_;
+}
+
+void Cell::setStrength(int strength)
+{
+    strength_ = strength;
 }
